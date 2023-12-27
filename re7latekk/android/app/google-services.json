@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "440358669301",
+    "project_id": "re7la-app",
+    "storage_bucket": "re7la-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:440358669301:android:b07ac75351c98cc5e16ebc",
+        "android_client_info": {
+          "package_name": "com.example.re7latekk"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAW64ub4Qt9vfu1qDzm7QKTka9Ybu5qkTA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

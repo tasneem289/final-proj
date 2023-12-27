@@ -1,0 +1,65 @@
+name: re7latekk
+description: "A new Flutter project."
+publish_to: 'none' 
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.2.0 <4.0.0'
+
+dependencies:
+  firebase_core: ^2.24.0
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  cloud_firestore: ^4.13.5
+  firebase_storage: ^11.5.3
+  firebase_messaging: ^14.7.6
+  firebase_auth: ^4.15.0
+  google_sign_in: ^6.1.6
+  image_picker: ^1.0.4
+  hexcolor: ^3.0.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - Images/aboutCompany.jpg
+    - Images/SignInSignUp.jpg
+    - Images/getStart.jpeg
+    - Images/RolePage.jpeg
+    - Images/comingSoon.jpeg
+    - Images/LogInCompany.jpeg
+    - Images/SignUpCompany.jpeg
+    - Images/car.jpg
+    - Images/carView.jpeg
+    - Images/Home.jpeg
+    - Images/List.jpeg
+    - Images/noti.jpeg
+    - Images/Plus.jpeg
+    - Images/Profile.jpeg
+    - Images/Back.jpg
+    - Images/calaender.jpg
+    - Images/car2.jpg
+    - Images/car3.jpg
+    - Images/carIcon.jpg
+    - Images/carSearch.jpg
+    - Images/Home.jpg
+    - Images/List.jpg
+    - Images/Plus.jpg
+    - Images/Notifaction.jpg
+    
+    
+     
+    
+    
+
+    
+
+
+
+ 
