@@ -1,8 +1,8 @@
-// ignore: file_names
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:re7latekk/LogInCompany.dart';
+
+import 'package:re7latekk/LogInUser.dart';
 import 'package:re7latekk/RolePage.dart';
 import 'package:re7latekk/homeUser.dart';
 
@@ -43,12 +43,6 @@ class _ScreenState extends State<SignUpForUser> {
           'phone': phone.text,
           'email': email.text,
         });
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => userhome(),
-          ),
-        );
       }
     } catch (e) {
       print(e);
@@ -61,6 +55,7 @@ class _ScreenState extends State<SignUpForUser> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(30.0),
@@ -69,23 +64,8 @@ class _ScreenState extends State<SignUpForUser> {
               children: [
                 Row(
                   children: [
-                    Container(
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Color.fromARGB(255, 5, 91, 161),
-                      ),
-                      child: const Padding(
-                        padding: EdgeInsets.all(6.0),
-                        child: Icon(
-                          Icons.arrow_back,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    IconButton(
-                      icon:
-                          Container(), // Empty container to expand the tap area
-                      onPressed: () {
+                    GestureDetector(
+                      onTap: () {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
@@ -93,6 +73,19 @@ class _ScreenState extends State<SignUpForUser> {
                           ),
                         );
                       },
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Color.fromARGB(255, 5, 91, 161),
+                        ),
+                        child: const Padding(
+                          padding: EdgeInsets.all(11.0),
+                          child: Icon(
+                            Icons.arrow_back,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -135,12 +128,12 @@ class _ScreenState extends State<SignUpForUser> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(
-                      color: Colors.grey[500]!,
+                      color: Colors.grey[400]!,
                     ),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.only(left: 50, right: 10),
-                    child: DropdownButton(
+                    child: DropdownButton<String>(
                       items: [
                         "cairo",
                         "sohag",
@@ -156,7 +149,13 @@ class _ScreenState extends State<SignUpForUser> {
                           .map(
                             (e) => DropdownMenuItem<String>(
                               value: e,
-                              child: Text(e),
+                              child: Text(
+                                e,
+                                style: const TextStyle(
+                                  color: Color.fromARGB(255, 92, 90,
+                                      90), // Set the text color to black
+                                ),
+                              ),
                             ),
                           )
                           .toList(),
@@ -167,6 +166,8 @@ class _ScreenState extends State<SignUpForUser> {
                       },
                       hint: const Text(
                         'City / Municipality',
+                        style: TextStyle(
+                            color: Color.fromARGB(255, 184, 183, 183)),
                       ),
                       isExpanded: true,
                       borderRadius: BorderRadius.circular(10),
@@ -180,9 +181,14 @@ class _ScreenState extends State<SignUpForUser> {
                       ),
                       style: const TextStyle(
                         color: Colors.black,
-                        fontSize: 18,
+                        fontSize: 17,
                       ),
                       value: con,
+                      dropdownColor: Colors.white,
+                      icon: const Icon(
+                        Icons.arrow_drop_down,
+                        color: Colors.black,
+                      ),
                     ),
                   ),
                 ),
@@ -215,7 +221,9 @@ class _ScreenState extends State<SignUpForUser> {
                   show: false,
                   label: 'Password',
                   suffix: Icons.remove_red_eye_outlined,
-                  suffixPress: () {},
+                  suffixPress: () {
+                    // Handle suffix press if needed
+                  },
                   valid: (value) {},
                   hint: 'Enter Your password',
                 ),
@@ -267,7 +275,7 @@ class _ScreenState extends State<SignUpForUser> {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => logincompany(),
+                        builder: (context) => const loginforuser(),
                       ),
                     );
                   },
@@ -339,7 +347,7 @@ class DefaultButton extends StatelessWidget {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => UserHome(),
+              builder: (context) => userhome(),
             ),
           );
         },
@@ -389,7 +397,7 @@ class DefaultFieldForm extends StatefulWidget {
   });
 
   @override
-  // ignore: library_private_types_in_public_api
+  // ignore: navrary_private_types_in_public_api
   _DefaultFieldFormState createState() => _DefaultFieldFormState();
 }
 
@@ -453,6 +461,7 @@ class _DefaultFieldFormState extends State<DefaultFieldForm> {
           ? !_showPassword
           : false,
       onTap: widget.tap,
+      style: TextStyle(color: Colors.black),
     );
   }
 }

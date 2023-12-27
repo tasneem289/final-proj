@@ -2,18 +2,21 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:re7latekk/ProfileUser.dart';
+//import 'package:re7latekk/RolePage.dart';
+import 'package:re7latekk/SignInSignUpUser.dart';
+import 'package:re7latekk/SignUpUser.dart';
+//import 'package:re7latekk/companyRegistration.dart';
+//import 'package:re7latekk/ProfileUser.dart';
 import 'package:re7latekk/homeUser.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const FigmaToCodeApp());
+  runApp(const loginforuser());
 }
 
-class FigmaToCodeApp extends StatelessWidget {
-  const FigmaToCodeApp({Key? key}) : super(key: key);
+class loginforuser extends StatelessWidget {
+  const loginforuser({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -88,21 +91,29 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Align(
                     alignment: Alignment.topLeft,
                     child: Container(
-                      decoration: BoxDecoration(
-                        color: HexColor('#055f91'),
+                      decoration: const BoxDecoration(
+                        color: Color.fromARGB(255, 5, 91, 161),
                         shape: BoxShape.circle,
                       ),
                       child: IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const SignInSignUp_User(),
+                            ),
+                          );
+                        },
                         icon: const Icon(
                           Icons.arrow_back_ios_new,
+                          color: Colors.white,
                         ),
                       ),
                     ),
                   ),
                 ),
                 const SizedBox(
-                  height: 40,
+                  height: 10,
                 ),
                 Text(
                   'Welcome Back to \nRE7LEAK ..!',
@@ -190,9 +201,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     } else if (value.length < 6) {
                       return 'Password must be at least 6 characters';
                     }
-                    // You can add more specific email validation logic here if needed
 
-                    // You can add more specific password validation logic here if needed
                     return null;
                   },
                 ),
@@ -200,7 +209,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 30,
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const SignUpForUser(),
+                      ),
+                    );
+                  },
                   child: RichText(
                     text: TextSpan(
                       text: 'Dont Have an account? ',

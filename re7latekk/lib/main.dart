@@ -1,7 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:re7latekk/LogInUser.dart';
 import 'package:re7latekk/SignInOrSignUp.dart';
 import 'package:re7latekk/SignUpUser.dart';
 import 'package:re7latekk/comingSoon.dart';
+import 'package:re7latekk/homeUser.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'get_start.dart';
@@ -35,6 +37,8 @@ class MyApp extends StatelessWidget {
         '/SignUp_Company': (BuildContext context) => const SignUpCompany(),
         '/coming_soon': (BuildContext context) => const coming_soon(),
         '/SignUpForUser': (BuildContext context) => const SignUpForUser(),
+        '/userhome': (BuildContext context) => const userhome(),
+        '/loginforuser': (BuildContext context) => const loginforuser(),
       },
     );
   }

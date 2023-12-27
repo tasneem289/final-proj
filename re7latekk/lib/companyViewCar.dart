@@ -6,7 +6,6 @@ import 'package:re7latekk/RolePage.dart';
 import 'package:re7latekk/addCarrr.dart';
 import 'package:re7latekk/companyHome.dart';
 
-
 class CarView extends StatelessWidget {
   final Map<String, dynamic> carData;
   final String docId;
@@ -177,7 +176,7 @@ class CarView extends StatelessWidget {
                                   height: 21.40,
                                   child: Text(
                                     carData['color'] ?? '',
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Colors.black,
                                       fontSize: 20,
                                       fontFamily: 'Rowdies',
@@ -241,7 +240,7 @@ class CarView extends StatelessWidget {
                                   height: 21.40,
                                   child: Text(
                                     carData['model'] ?? '',
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Colors.black,
                                       fontSize: 20,
                                       fontFamily: 'Rowdies',
@@ -305,7 +304,7 @@ class CarView extends StatelessWidget {
                                   height: 21,
                                   child: Text(
                                     carData['seater'] ?? '',
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Colors.black,
                                       fontSize: 20,
                                       fontFamily: 'Rowdies',
@@ -444,7 +443,7 @@ class CarView extends StatelessWidget {
                                         borderRadius: BorderRadius.circular(15),
                                       ),
                                     ),
-                                    child: Text(
+                                    child: const Text(
                                       'DELETE',
                                       style: TextStyle(
                                         color: Colors.white,
@@ -487,20 +486,7 @@ class CarView extends StatelessWidget {
               },
             ),
             IconButton(
-              icon: Icon(Icons.add_circle_outline),
-              iconSize: 32,
-              color: Color(0xFF045F91),
-              onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const AddCar(),
-                  ),
-                );
-              },
-            ),
-            IconButton(
-              icon: Icon(Icons.notifications_none),
+              icon: const Icon(Icons.notifications_none),
               iconSize: 32,
               color: Color(0xFF045F91),
               onPressed: () {
@@ -529,13 +515,13 @@ class CarView extends StatelessWidget {
           child: ListView(
             padding: EdgeInsets.zero,
             children: [
-              DrawerHeader(
+              const DrawerHeader(
                 decoration: BoxDecoration(
                   color: Color.fromARGB(255, 255, 255, 255),
                 ),
                 child: Center(
                   child: Text(
-                    'Settings',
+                    'RE7LETAK For Cars',
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 24,
@@ -588,14 +574,14 @@ class CarView extends StatelessWidget {
   }
 
   Widget arrowIcon() {
-    return Icon(
+    return const Icon(
       Icons.arrow_forward_ios_sharp,
       size: 20,
     );
   }
 
   Widget myDivider() {
-    return Divider(
+    return const Divider(
       height: 10,
       color: Color.fromARGB(255, 230, 227, 227),
       indent: 20,

@@ -1,6 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+//import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:re7latekk/RolePage.dart';
+import 'package:re7latekk/LogInUser.dart';
+
 import 'package:re7latekk/SearchResultUser.dart';
 
 class userhome extends StatelessWidget {
@@ -29,20 +30,7 @@ class userhome extends StatelessWidget {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const RolePage(),
-                    ),
-                  );
-                },
-              ),
-              IconButton(
-                icon: const Icon(Icons.add_circle_outline),
-                iconSize: 32,
-                color: const Color(0xFF045F91),
-                onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const RolePage(),
+                      builder: (context) => const UserHome(),
                     ),
                   );
                 },
@@ -83,7 +71,7 @@ class userhome extends StatelessWidget {
                   ),
                   child: Center(
                     child: Text(
-                      'Settings',
+                      'RE7LETAK For Cars',
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 24,
@@ -92,22 +80,22 @@ class userhome extends StatelessWidget {
                     ),
                   ),
                 ),
-                /*
                 myListTitle('Account', "Images/account.jpg"),
-                myDivider(),
-                myListTitle('Notifications', "Images/notification.jpg"),
-                myDivider(),
-                myListTitle('Language', "Images/lang.jpg"),
-                myDivider(),
-                myListTitle('Terms & Conditions', "Images/terms.jpg"),
-                myDivider(),
-                myListTitle('Privacy Policy', "Images/privacy.jpg"),
                 myDivider(),
                 myListTitle('About', "Images/about.jpg"),
                 myDivider(),
-                myListTitle('Logout', "Images/logout.jpg"),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const loginforuser(),
+                      ),
+                    );
+                  },
+                  child: myListTitle('Logout', "Images/logout.jpg"),
+                ),
                 myDivider(),
-                */
               ],
             ),
           ),
