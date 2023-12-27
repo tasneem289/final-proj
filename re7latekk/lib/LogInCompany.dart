@@ -6,7 +6,7 @@ import 'package:re7latekk/comingSoon.dart';
 import 'package:re7latekk/companyRegistration.dart';
 import 'package:re7latekk/get_start.dart';
 import 'package:re7latekk/companyHome.dart';
-import 'package:re7latekk/testing.dart';
+
 
 class login_company extends StatelessWidget {
   const login_company({Key? key});

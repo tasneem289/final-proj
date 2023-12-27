@@ -3,42 +3,30 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:re7latekk/RolePage.dart';
+import 'package:re7latekk/SearchResultUser.dart';
 import 'package:re7latekk/addCarrr.dart';
 import 'package:re7latekk/companyHome.dart';
 
 
-class CarView extends StatelessWidget {
-  final Map<String, dynamic> carData;
-  final String docId;
+class DetialsOFCarsUser extends StatelessWidget {
+  final Car car;
 
-  const CarView({Key? key, required this.carData, required this.docId})
-      : super(key: key);
-
-  Future<void> _deleteCar(BuildContext context, String carId) async {
-    try {
-      await FirebaseFirestore.instance.collection('cars').doc(carId).delete();
-      print('Car deleted successfully!');
-    } catch (e) {
-      print('Error deleting car: $e');
-    }
-  }
+  const DetialsOFCarsUser({Key? key, required this.car}) : super(key: key);
 
   Future<ImageProvider> _getImageProvider() async {
-    if (carData['image_url'] != null) {
+    if (car.imageUrl != null) {
       try {
-        if (carData['image_url'] is String &&
-            (carData['image_url'] as String).startsWith('https://')) {
+        if (car.imageUrl is String && car.imageUrl.startsWith('https://')) {
           // If it's a direct HTTPS URL, use NetworkImage
-          return NetworkImage(carData['image_url']);
-        } else if (carData['image_url'] is String &&
-            (carData['image_url'] as String).startsWith('gs://')) {
+          return NetworkImage(car.imageUrl);
+        } else if (car.imageUrl is String && car.imageUrl.startsWith('gs://')) {
           // If it's a Firebase Storage reference, use NetworkImage
-          return NetworkImage(carData['image_url']);
+          return NetworkImage(car.imageUrl);
         } else {
           // Assume it's a path in Firebase Storage and fetch the URL
           final imageUrl = await FirebaseStorage.instance
               .ref()
-              .child(carData['image_url'])
+              .child(car.imageUrl)
               .getDownloadURL();
           print('Image URL: $imageUrl');
           return NetworkImage(imageUrl);
@@ -176,7 +164,7 @@ class CarView extends StatelessWidget {
                                   width: 52,
                                   height: 21.40,
                                   child: Text(
-                                    carData['color'] ?? '',
+                                    car.color,
                                     style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 20,
@@ -240,7 +228,7 @@ class CarView extends StatelessWidget {
                                   width: 52,
                                   height: 21.40,
                                   child: Text(
-                                    carData['model'] ?? '',
+                                    car.model,
                                     style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 20,
@@ -304,7 +292,7 @@ class CarView extends StatelessWidget {
                                   width: 14,
                                   height: 21,
                                   child: Text(
-                                    carData['seater'] ?? '',
+                                    car.seater,
                                     style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 20,
@@ -368,7 +356,7 @@ class CarView extends StatelessWidget {
                                   width: 56,
                                   height: 21,
                                   child: Text(
-                                    carData['rental'] ?? '',
+                                    car.rental,
                                     style: const TextStyle(
                                       color: Colors.black,
                                       fontSize: 20,
@@ -430,7 +418,6 @@ class CarView extends StatelessWidget {
                                   height: 47,
                                   child: ElevatedButton(
                                     onPressed: () {
-                                      _deleteCar(context, docId);
                                       Navigator.pushReplacement(
                                         context,
                                         MaterialPageRoute(
@@ -445,7 +432,7 @@ class CarView extends StatelessWidget {
                                       ),
                                     ),
                                     child: Text(
-                                      'DELETE',
+                                      'Book',
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 20,

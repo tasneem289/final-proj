@@ -43,6 +43,12 @@ class _ScreenState extends State<SignUpForUser> {
           'phone': phone.text,
           'email': email.text,
         });
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => userhome(),
+          ),
+        );
       }
     } catch (e) {
       print(e);

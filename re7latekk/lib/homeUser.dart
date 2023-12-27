@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:re7latekk/RolePage.dart';
-import 'package:re7latekk/SerachScreenUser.dart';
+import 'package:re7latekk/SearchResultUser.dart';
 
 class userhome extends StatelessWidget {
   const userhome({Key? key}) : super(key: key);
@@ -92,6 +92,7 @@ class userhome extends StatelessWidget {
                     ),
                   ),
                 ),
+                /*
                 myListTitle('Account', "Images/account.jpg"),
                 myDivider(),
                 myListTitle('Notifications', "Images/notification.jpg"),
@@ -106,6 +107,7 @@ class userhome extends StatelessWidget {
                 myDivider(),
                 myListTitle('Logout', "Images/logout.jpg"),
                 myDivider(),
+                */
               ],
             ),
           ),
@@ -531,8 +533,9 @@ class _UserHomeState extends State<UserHome> {
                                         items: <String>[
                                           'Cairo',
                                           'Minia',
-                                          'Other Location 2',
-                                          'Other Location 3'
+                                          'Giza',
+                                          'Assuit',
+                                          'Sohag',
                                         ].map<DropdownMenuItem<String>>(
                                             (String value) {
                                           return DropdownMenuItem<String>(
@@ -654,8 +657,11 @@ class _UserHomeState extends State<UserHome> {
                                         items: <String>[
                                           'Aswan',
                                           'Minia',
-                                          'Other Location 2',
-                                          'Other Location 3'
+                                          'Cairo',
+                                          'Minia',
+                                          'Giza',
+                                          'Assuit',
+                                          'Sohag',
                                         ].map<DropdownMenuItem<String>>(
                                             (String value) {
                                           return DropdownMenuItem<String>(

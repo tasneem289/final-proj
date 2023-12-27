@@ -1,5 +1,3 @@
-/*
-import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -71,17 +69,101 @@ class HomePage extends StatelessWidget {
                 print('Third IconButton Pressed');
               },
             ),
-            IconButton(
-              icon: Icon(Icons.menu),
-              iconSize: 32,
-              color: Color(0xFF045F91),
-              onPressed: () {
-                print('Fourth IconButton Pressed');
+            Builder(
+              builder: (BuildContext context) {
+                return IconButton(
+                  icon: Icon(Icons.menu),
+                  iconSize: 32,
+                  color: Color(0xFF045F91),
+                  onPressed: () {
+                    // Open the drawer
+                    Scaffold.of(context).openDrawer();
+                  },
+                );
               },
             ),
           ],
         ),
       ),
+      drawer: Drawer(
+        child: Container(
+          color: Colors.white,
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: [
+              DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Color.fromARGB(255, 255, 255, 255),
+                ),
+                child: Center(
+                  child: Text(
+                    'Settings',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 24,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+              ),
+              myListTitle('Account', "Images/account.jpg"),
+              myDivider(),
+              myListTitle('Notifications', "Images/notification.jpg"),
+              myDivider(),
+              myListTitle('Language', "Images/lang.jpg"),
+              myDivider(),
+              myListTitle('Terms & Conditions', "Images/terms.jpg"),
+              myDivider(),
+              myListTitle('Privacy Policy', "Images/privacy.jpg"),
+              myDivider(),
+              myListTitle('About', "Images/about.jpg"),
+              myDivider(),
+              myListTitle('Logout', "Images/logout.jpg"),
+              myDivider(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget myListTitle(String text, String imgUrl) {
+    return ListTile(
+      leading: CircleAvatar(
+        backgroundImage: AssetImage(imgUrl),
+      ),
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            text,
+            style: const TextStyle(
+              color: Color.fromARGB(255, 41, 40, 38),
+              fontSize: 18,
+            ),
+          ),
+          arrowIcon(),
+        ],
+      ),
+      onTap: () {
+        // Handle Account
+      },
+    );
+  }
+
+  Widget arrowIcon() {
+    return Icon(
+      Icons.arrow_forward_ios_sharp,
+      size: 20,
+    );
+  }
+
+  Widget myDivider() {
+    return Divider(
+      height: 10,
+      color: Color.fromARGB(255, 230, 227, 227),
+      indent: 20,
+      endIndent: 20,
     );
   }
 }
@@ -184,133 +266,98 @@ class CarGridItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        _viewCarDetails(context, carData, carId);
-      },
-      child: Container(
-        width: 182,
-        height: 270,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(25),
-        ),
-        child: FutureBuilder(
-          future: _getImageProvider(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              return Stack(
-                children: [
-                  Positioned(
-                    left: 6,
-                    top: 44,
-                    child: Container(
-                      width: 170,
-                      height: 77.05,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: snapshot.data as ImageProvider,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 29,
-                    top: 132.70,
-                    child: SizedBox(
-                      width: 130,
-                      height: 21.40,
-                      child: Text(
-                        carData['model'] ?? '',
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontFamily: 'Rowdies',
-                          fontWeight: FontWeight.w700,
-                          height: 0,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 35,
-                    top: 164.38,
-                    child: SizedBox(
-                      width: 13,
-                      height: 21.40,
-                      child: Text(
-                        carData['seater'] ?? '',
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontFamily: 'Rowdies',
-                          fontWeight: FontWeight.w300,
-                          height: 0,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const Positioned(
-                    left: 55,
-                    top: 164.38,
-                    child: SizedBox(
-                      width: 74,
-                      height: 21.40,
-                      child: Opacity(
-                        opacity: 0.50,
-                        child: Text(
-                          'SEATER',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontFamily: 'Rowdies',
-                            fontWeight: FontWeight.w300,
-                            height: 0,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 73,
-                    top: 190,
-                    child: SizedBox(
-                      width: 52,
-                      height: 21.40,
-                      child: Text(
-                        carData['color'] ?? '',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontFamily: 'Rowdies',
-                          fontWeight: FontWeight.w300,
-                          height: 0,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              );
-            } else {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-          },
-        ),
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(25),
       ),
-    );
-  }
-
-  void _viewCarDetails(
-      BuildContext context, Map<String, dynamic> carData, String carId) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => CarView(carData: carData, docId: carId),
+      child: InkWell(
+        onTap: () {
+          _viewCarDetails(context, carData, carId);
+        },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(
+              child: ClipRRect(
+                borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+                child: FutureBuilder(
+                  future: _getImageProvider(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      return Image(
+                        image: snapshot.data as ImageProvider,
+                        fit: BoxFit.cover,
+                      );
+                    } else {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                  },
+                ),
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                color: Color.fromARGB(
+                  255,
+                  255,
+                  255,
+                  255,
+                ), // The new background color
+                borderRadius:
+                    BorderRadius.vertical(bottom: Radius.circular(25)),
+              ),
+              child: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      carData['model'] ?? '',
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 0, 0, 0),
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    SizedBox(height: 4),
+                    Text(
+                      '${carData['seater'] ?? ''} SEATER',
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 0, 0, 0),
+                      ),
+                    ),
+                    SizedBox(height: 4),
+                    Text(
+                      carData['color'] ?? '',
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 0, 0, 0),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 }
-*/
+
+void _viewCarDetails(
+    BuildContext context, Map<String, dynamic> carData, String carId) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => CarView(carData: carData, docId: carId),
+    ),
+  );
+}

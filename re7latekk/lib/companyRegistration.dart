@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:re7latekk/SignInOrSignUp.dart';
 import 'package:re7latekk/addCarrr.dart';
-import 'package:re7latekk/comingSoon.dart';
-import 'get_start.dart';
 
-void main() {
-  runApp(const SignUpCompany());
-}
+enum AddressChoice { Cairo, Giza, Tanta, Fayoum, Minia, Assiut, Sohag, Aswan }
 
 class SignUpCompany extends StatelessWidget {
   const SignUpCompany({Key? key}) : super(key: key);
@@ -50,11 +45,11 @@ class RegistrationFields extends StatefulWidget {
 }
 
 class _RegistrationFieldsState extends State<RegistrationFields> {
-  final _formKey = GlobalKey<FormState>();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  String? fullName, email, password, phoneNumber, taxNumber, address;
+  String? fullName, email, password, phoneNumber, taxNumber;
+  AddressChoice? selectedAddressChoice;
 
   String? validateRequiredField(String? value, String fieldName) {
     if (value == null || value.trim().isEmpty) {
@@ -79,21 +74,18 @@ class _RegistrationFieldsState extends State<RegistrationFields> {
     String? phoneNumberError =
         validateRequiredField(phoneNumber, 'phone number');
     String? taxNumberError = validateRequiredField(taxNumber, 'tax number');
-    String? addressError = validateRequiredField(address, 'address');
     String? emailError = validateRequiredField(email, 'email');
     String? passwordError = passwordValidator!(password);
 
     if (fullNameError != null ||
         phoneNumberError != null ||
         taxNumberError != null ||
-        addressError != null ||
         emailError != null ||
         passwordError != null) {
       // Display the first error message encountered
       String? errorMessage = fullNameError ??
           phoneNumberError ??
           taxNumberError ??
-          addressError ??
           emailError ??
           passwordError;
       final snackBar = SnackBar(content: Text(errorMessage!));
@@ -105,35 +97,57 @@ class _RegistrationFieldsState extends State<RegistrationFields> {
       context,
       MaterialPageRoute(builder: (context) => AddCar()),
     );
-
-    try {
-      UserCredential userCredential =
-          await _auth.createUserWithEmailAndPassword(
-        email: email!,
-        password: password!,
-      );
-
-      if (userCredential.user != null) {
-        await _firestore.collection('users').doc(userCredential.user!.uid).set({
-          'full_name': fullName,
-          'phoneNumber': phoneNumber,
-          'taxNumber': taxNumber,
-          'address': address,
-          'email': email,
-        });
-      }
-    } catch (e) {
-      print(e);
-      final snackBar =
-          SnackBar(content: Text('Error registering user. ${e.toString()}'));
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     const labelStyle = TextStyle(color: Colors.grey, fontSize: 16);
     const inputStyle = TextStyle(color: Colors.black, fontSize: 18);
+
+    buildAddressDropdown(TextStyle labelStyle, TextStyle inputStyle) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            decoration: BoxDecoration(
+              color: Colors.grey[200],
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: DropdownButtonFormField<AddressChoice>(
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                labelText: 'ADDRESS',
+                labelStyle: labelStyle,
+              ),
+              icon: Icon(
+                Icons.arrow_drop_down,
+                color: Colors.black, // Change the arrow color
+              ),
+              style: inputStyle,
+              value: selectedAddressChoice,
+              onChanged: (AddressChoice? value) {
+                setState(() {
+                  selectedAddressChoice = value;
+                });
+              },
+              items: AddressChoice.values.map((AddressChoice choice) {
+                return DropdownMenuItem<AddressChoice>(
+                  value: choice,
+                  child: Text(
+                    choice.toString().split('.').last,
+                    style: TextStyle(
+                      color: Colors.black, // Change the text color
+                    ),
+                  ),
+                );
+              }).toList(),
+              dropdownColor: Colors.white, // Change the background color
+            ),
+          ),
+        ],
+      );
+    }
 
     return SingleChildScrollView(
       child: Column(
@@ -197,17 +211,7 @@ class _RegistrationFieldsState extends State<RegistrationFields> {
                   },
                 ),
                 const SizedBox(height: 5),
-                buildGrayBoxTextField(
-                  'ADDRESS',
-                  labelStyle,
-                  inputStyle,
-                  onChanged: (value) {
-                    setState(() {
-                      address = value;
-                    });
-                  },
-                  validator: (value) => validateRequiredField(value, 'address'),
-                ),
+                buildAddressDropdown(labelStyle, inputStyle),
                 const SizedBox(height: 5),
                 buildGrayBoxTextField(
                   'EMAIL',
@@ -237,7 +241,36 @@ class _RegistrationFieldsState extends State<RegistrationFields> {
                 Center(
                   child: GestureDetector(
                     onTap: () async {
-                      await registerUser(); // Wait for registerUser to complete
+                      await registerUser();
+                      try {
+                        UserCredential userCredential =
+                            await _auth.createUserWithEmailAndPassword(
+                          email: email!,
+                          password: password!,
+                        );
+
+                        if (userCredential.user != null) {
+                          await _firestore
+                              .collection('Companies')
+                              .doc(userCredential.user!.uid)
+                              .set({
+                            'full_name': fullName,
+                            'phoneNumber': phoneNumber,
+                            'taxNumber': taxNumber,
+                            'address': selectedAddressChoice
+                                .toString()
+                                .split('.')
+                                .last,
+                            'email': email,
+                          });
+                        }
+                      } catch (e) {
+                        print(e);
+                        final snackBar = SnackBar(
+                            content: Text(
+                                'Error registering user. ${e.toString()}'));
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      } // Wait for registerUser to complete
                     },
                     child: Container(
                       width: 180,

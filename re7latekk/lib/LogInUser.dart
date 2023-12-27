@@ -5,6 +5,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:re7latekk/ProfileUser.dart';
 import 'package:re7latekk/homeUser.dart';
 
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -53,6 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
         print('User signed in: ${userCredential.user!.uid}');
 
         // Navigate to the next screen or perform any additional actions
+        // ignore: use_build_context_synchronously
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
