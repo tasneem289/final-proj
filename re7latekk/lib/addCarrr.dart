@@ -8,8 +8,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:re7latekk/companyHome.dart';
 
-class FigmaToCodeApp extends StatelessWidget {
-  const FigmaToCodeApp({Key? key});
+class addcar extends StatelessWidget {
+  const addcar({Key? key});
 
   @override
   Widget build(BuildContext context) {
@@ -249,6 +249,7 @@ class _AddCarState extends State<AddCar> {
           content: Text('Car added successfully'),
         ));
 
+        // ignore: use_build_context_synchronously
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => HomePage()),

@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
         '/coming_soon': (BuildContext context) => const coming_soon(),
         '/SignUpForUser': (BuildContext context) => const SignUpForUser(),
         '/userhome': (BuildContext context) => const userhome(),
-        '/loginforuser': (BuildContext context) => const loginforuser(),
+        '/loginforuser': (BuildContext context) => const loginUser(),
       },
     );
   }

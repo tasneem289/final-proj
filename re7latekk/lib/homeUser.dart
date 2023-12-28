@@ -11,10 +11,7 @@ class userhome extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      //theme: ThemeData.dark().copyWith(
-      //  scaffoldBackgroundColor: const Color.fromARGB(255, 18, 32, 47),
-      //),
-
+  
       home: Scaffold(
         backgroundColor: const Color(0xFAFAFAFA),
         bottomNavigationBar: BottomAppBar(
@@ -89,7 +86,7 @@ class userhome extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const loginforuser(),
+                        builder: (context) => const loginUser(),
                       ),
                     );
                   },

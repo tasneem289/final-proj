@@ -91,13 +91,13 @@ class HomePage extends StatelessWidget {
           child: ListView(
             padding: EdgeInsets.zero,
             children: [
-              DrawerHeader(
+              const DrawerHeader(
                 decoration: BoxDecoration(
                   color: Color.fromARGB(255, 255, 255, 255),
                 ),
                 child: Center(
                   child: Text(
-                    'Settings',
+                    'RE7LETAK For Cars',
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 24,
@@ -107,14 +107,6 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               myListTitle('Account', "Images/account.jpg"),
-              myDivider(),
-              myListTitle('Notifications', "Images/notification.jpg"),
-              myDivider(),
-              myListTitle('Language', "Images/lang.jpg"),
-              myDivider(),
-              myListTitle('Terms & Conditions', "Images/terms.jpg"),
-              myDivider(),
-              myListTitle('Privacy Policy', "Images/privacy.jpg"),
               myDivider(),
               myListTitle('About', "Images/about.jpg"),
               myDivider(),
@@ -145,21 +137,19 @@ class HomePage extends StatelessWidget {
           arrowIcon(),
         ],
       ),
-      onTap: () {
-        // Handle Account
-      },
+      onTap: () {},
     );
   }
 
   Widget arrowIcon() {
-    return Icon(
+    return const Icon(
       Icons.arrow_forward_ios_sharp,
       size: 20,
     );
   }
 
   Widget myDivider() {
-    return Divider(
+    return const Divider(
       height: 10,
       color: Color.fromARGB(255, 230, 227, 227),
       indent: 20,
@@ -289,7 +279,7 @@ class CarGridItem extends StatelessWidget {
                         fit: BoxFit.cover,
                       );
                     } else {
-                      return Center(
+                      return const Center(
                         child: CircularProgressIndicator(),
                       );
                     }
@@ -298,7 +288,7 @@ class CarGridItem extends StatelessWidget {
               ),
             ),
             Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Color.fromARGB(
                   255,
                   255,

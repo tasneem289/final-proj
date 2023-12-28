@@ -2,21 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:hexcolor/hexcolor.dart';
-//import 'package:re7latekk/RolePage.dart';
 import 'package:re7latekk/SignInSignUpUser.dart';
-import 'package:re7latekk/SignUpUser.dart';
-//import 'package:re7latekk/companyRegistration.dart';
-//import 'package:re7latekk/ProfileUser.dart';
 import 'package:re7latekk/homeUser.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  runApp(const loginforuser());
-}
 
-class loginforuser extends StatelessWidget {
-  const loginforuser({Key? key}) : super(key: key);
+class loginUser extends StatelessWidget {
+  const loginUser({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => userhome(),
+            builder: (context) => const userhome(),
           ),
         );
       }
@@ -91,8 +82,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Align(
                     alignment: Alignment.topLeft,
                     child: Container(
-                      decoration: const BoxDecoration(
-                        color: Color.fromARGB(255, 5, 91, 161),
+                      decoration: BoxDecoration(
+                        color: HexColor('#055f91'),
                         shape: BoxShape.circle,
                       ),
                       child: IconButton(
@@ -106,14 +97,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         },
                         icon: const Icon(
                           Icons.arrow_back_ios_new,
-                          color: Colors.white,
                         ),
                       ),
                     ),
                   ),
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 40,
                 ),
                 Text(
                   'Welcome Back to \nRE7LEAK ..!',
@@ -201,7 +191,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     } else if (value.length < 6) {
                       return 'Password must be at least 6 characters';
                     }
+                    // You can add more specific email validation logic here if needed
 
+                    // You can add more specific password validation logic here if needed
                     return null;
                   },
                 ),
@@ -209,14 +201,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 30,
                 ),
                 InkWell(
-                  onTap: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const SignUpForUser(),
-                      ),
-                    );
-                  },
+                  onTap: () {},
                   child: RichText(
                     text: TextSpan(
                       text: 'Dont Have an account? ',
@@ -242,7 +227,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Center(
                   child: ElevatedButton(
                     onPressed: () {
-                      if (formKey.currentState?.validate() ?? false) {
+                      if (formKey.currentState!.validate()) {
                         // Form is valid, perform login
                         loginUser();
                       }

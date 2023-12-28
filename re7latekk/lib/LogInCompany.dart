@@ -1,12 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:re7latekk/SignInOrSignUp.dart';
-import 'package:re7latekk/addCarrr.dart';
-import 'package:re7latekk/comingSoon.dart';
-import 'package:re7latekk/companyRegistration.dart';
-import 'package:re7latekk/get_start.dart';
 import 'package:re7latekk/companyHome.dart';
+import 'package:re7latekk/companyRegistration.dart';
 
+String? validateRequiredField(String? value, String fieldName, String pattern) {
+  if (value == null || value.isEmpty) {
+    return 'Please enter your $fieldName';
+  }
+
+  if (!RegExp(pattern).hasMatch(value)) {
+    return 'Invalid $fieldName format';
+  }
+
+  return null;
+}
+
+String? passwordValidator(String? value) {
+  if (value == null || value.isEmpty) {
+    return 'Please enter a password';
+  }
+  return null;
+}
 
 class login_company extends StatelessWidget {
   const login_company({Key? key});
@@ -39,6 +54,7 @@ class login_company extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class logincompany extends StatelessWidget {
   logincompany({Key? key}) : super(key: key);
 
@@ -73,7 +89,7 @@ class logincompany extends StatelessWidget {
           builder: (context) {
             return AlertDialog(
               title: const Text("Login Error"),
-              content: Text(e.message ?? "An error occurred during login."),
+              content: Text("Account dosn't exist"),
               actions: [
                 TextButton(
                   onPressed: () {
@@ -137,12 +153,11 @@ class logincompany extends StatelessWidget {
                                   borderSide: BorderSide(color: Colors.black),
                                 ),
                               ),
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter your email';
-                                }
-                                return null;
-                              },
+                              validator: (value) => validateRequiredField(
+                                value,
+                                'email',
+                                r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+                              ),
                             ),
                           ),
                           const SizedBox(height: 15),
@@ -160,12 +175,7 @@ class logincompany extends StatelessWidget {
                                 ),
                               ),
                               obscureText: true,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter your password';
-                                }
-                                return null;
-                              },
+                              validator: passwordValidator,
                             ),
                           ),
                           const SizedBox(height: 20),
